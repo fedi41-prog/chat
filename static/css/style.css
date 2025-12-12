@@ -17,11 +17,15 @@ body {
     background-color: #d8d1d1;
 
     font-size: 1rem;
+
+
+    width: 90%;
 }
 .message[data-type="my-message"] {
     background-color: #bcdfcf;
     border-color: #0f5132;
     text-align: right;
+    margin-left: auto;
 }
 
 
@@ -42,23 +46,53 @@ body {
     bottom: 0;
     width: 100%;
     background-color: #ffffff;
-    padding: 10px;
+    padding: 0;
     box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 }
+
 .input-area input[type="text"] {
     width: 80%;
     padding: 10px;
     font-size: 1rem;
     border: 1px solid #d3d3d3;
     border-radius: 5px;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
 }
 
 #send-button {
+    flex: 1;
+    bottom: 0;
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
     padding: 10px 20px;
     font-size: 1rem;
     border: none;
     border-radius: 5px;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
     background-color: #28a745;
     color: #fff;
     cursor: pointer;
+}
+
+@media (max-width: 600px) {
+    .input-area {
+        flex-direction: column;
+        align-items: center;
+    }
+    .input-area input[type="text"] {
+        width: 100%;
+    }
+    #send-button {
+        border-radius: 0px;
+    }
+    .message {
+        width: 75%;
+    }
 }
