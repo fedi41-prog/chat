@@ -6,10 +6,14 @@ function getUrlParam(name) {
 }
 
 function setCookie(cname, cvalue, exdays) {
-  const d = new Date();
-  d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
-  let expires = "expires="+d.toUTCString();
-  document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+  if (exdays != 0) {
+    const d = new Date();
+    d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+    let expires = "expires="+d.toUTCString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+  } else {
+    document.cookie = cname + "=" + cvalue + ";path=/";
+  }
 }
 function getCookie(cname) {
   let name = cname + "=";
@@ -32,11 +36,11 @@ function checkHasName() {
   } else {
     user = prompt("Please enter your name:", "");
     if (user != "" && user != null) {
-      setCookie("username", user, 365);
+      setCookie("username", user + "$" + Math.floor(Math.random() * 10000000), 365);
       console.log("New user set: " + user);
     } else {
       alert("No name entered. Using 'Guest' as your name.");
-      setCookie("username", "Guest" + Math.floor(Math.random() * 100000), 1);
+      setCookie("username", "Guest" + Math.floor(Math.random() * 100) + "$" + Math.floor(Math.random() * 10000000), 0);
     }
   }
 }
@@ -45,26 +49,26 @@ async function setup() {
     checkHasName();
     const realtimeClient = new Ably.Realtime({
         key: 'exK4Cg.m4VhmA:GDez8Ium7MNITXQ0MonMuwiVdC5TluhFbsDkem40itU',
-        clientId: getCookie("username")
+        clientId: getCookie("username") || 'Guest' + Math.floor(Math.random() * 100) + "$" + Math.floor(Math.random() * 10000000)
     });
     await realtimeClient.connection.once('connected');
 
     const channel = realtimeClient.channels.get(getUrlParam('channel') || 'global-chat');
     const history = await channel.history();
-    for (let msg of history.items) {
+    for (let msg of history.items.reverse()) {
         isMyMessage = msg.clientId === realtimeClient.auth.clientId;
         messageType = isMyMessage ? "my-message" : "normal";
-        addMessage(msg.clientId, msg.data, messageType);
+        addMessage(msg.clientId.split("$")[0], msg.data, messageType);
     }
+
+    const username = getCookie("username").split("$")[0];
     
-    addMessage('LOG', 'CONNECTED as ' + realtimeClient.auth.clientId);
-
-
-
+    document.title = "Chatting as " + username;
+    
     await channel.subscribe((message) => {
         isMyMessage = message.clientId === realtimeClient.auth.clientId;
         messageType = isMyMessage ? "my-message" : "normal";
-        addMessage(message.clientId, message.data, messageType);
+        addMessage(message.clientId.split("$")[0], message.data, messageType);
     });
 
     button = document.getElementById("send-button");
