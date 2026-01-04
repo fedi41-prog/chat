@@ -3,20 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
     <title>open chat</title>
+    
     <link rel="stylesheet" href="static/css/style.css">
+    <link rel="stylesheet" href="static/css/input_field.css">
 </head>
 <body>
     
     <div class="message-area" id="messageArea">
         
     </div>
-    
-    <div class="input-area">
-        <input type="text" id="message-input" placeholder="Type your message here...">
-        <button id="send-button">SEND</button> 
-    </div>
 
+    <div class="chat-input-container">
+        <div class="chat-input-wrapper">
+            <input type="text" class="chat-input" id="message-input" placeholder="Type a message...">
+            <button class="send-button" id="send-button">
+                <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+                </svg>
+            </button>
+        </div>
+    </div>
     <script src="https://cdn.ably.com/lib/ably.min-2.js"></script>
     <script src="static/js/main.js"></script>
 </body>

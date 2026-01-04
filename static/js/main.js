@@ -57,7 +57,7 @@ async function setup() {
     const history = await channel.history();
     for (let msg of history.items.reverse()) {
         isMyMessage = msg.clientId === realtimeClient.auth.clientId;
-        messageType = isMyMessage ? "my-message" : "normal";
+        messageType = isMyMessage ? "my-message" : "other-message";
         addMessage(msg.clientId.split("$")[0], msg.data, messageType);
     }
 
@@ -67,7 +67,7 @@ async function setup() {
     
     await channel.subscribe((message) => {
         isMyMessage = message.clientId === realtimeClient.auth.clientId;
-        messageType = isMyMessage ? "my-message" : "normal";
+        messageType = isMyMessage ? "my-message" : "other-message";
         addMessage(message.clientId.split("$")[0], message.data, messageType);
     });
 
@@ -90,7 +90,7 @@ setup();
 //View messages ->
 let messageCounter = 1;
 
-function addMessage(heading, text, messageType="normal") {
+function addMessage(heading, text, messageType="other-message") {
     const area = document.getElementById("messageArea");
 
     // Neues div erzeugen

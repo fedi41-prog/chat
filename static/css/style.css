@@ -2,9 +2,26 @@ html {
     font-size: 20px;
 }
 
+
+:root {
+    --primary-color: #2a7fff;
+    --secondary-color: #e6f0ff;
+    --tertiary-color: #f0f7ff;
+    --success-color: #00c48c;
+    --text-color: #2c3e50;
+    --light-text: #7c8999;
+    --border-radius: 12px;
+    --box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+    --transition: all 0.3s ease;
+
+    --oponent-color: #9298e7;
+    --oponent-border-color: #161485;
+}
+
+
 body {
     font-family: Arial, sans-serif;
-    background-color: #ffffff;
+    background-color: var(--secondary-color);
     margin: 0;
     padding: 0;
 }
@@ -13,7 +30,9 @@ body {
     border: 1px solid #bbb7b7;
     padding: 10px;
     margin: 10px 10px;
-    border-radius: 5px;
+
+    border-radius: 20px;
+
     background-color: #d8d1d1;
 
     font-size: 1rem;
@@ -21,11 +40,22 @@ body {
     width: 90%;
 }
 .message[data-type="my-message"] {
-    background-color: #bcdfcf;
-    border-color: #0f5132;
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
     text-align: right;
     margin-left: auto;
+
+    border-top-right-radius: 4px;
 }
+.message[data-type="other-message"] {
+    background-color: white;
+    border-color: white;
+    text-align: center;
+
+    border-top-left-radius: 4px;
+}
+
+
 .message:last-child {
     margin-bottom: 200px; /* To avoid overlap with input area */
 }
@@ -34,8 +64,12 @@ body {
 
 .message-text {
     font-size: 1em;
-    color: #333;
+    color: var(--text-color);
 }
+.message[data-type="my-message"] .message-text {
+    color: white;
+}
+
 .message-header {
     font-size: 1.1em;
     font-weight: bold;
@@ -43,57 +77,8 @@ body {
     margin-top: 0.25em;
 }
 
-.input-area {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    background-color: #ffffff;
-    padding: 0;
-    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
-
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-}
-
-.input-area input[type="text"] {
-    width: 80%;
-    padding: 10px;
-    font-size: 1rem;
-    border: 1px solid #d3d3d3;
-    border-radius: 5px;
-    border-top-right-radius: 0px;
-    border-bottom-right-radius: 0px;
-}
-
-#send-button {
-    flex: 1;
-    bottom: 0;
-    width: 100%;
-    margin-left: 0;
-    margin-right: 0;
-    padding: 10px 20px;
-    font-size: 1rem;
-    border: none;
-    border-radius: 5px;
-    border-top-left-radius: 0px;
-    border-bottom-left-radius: 0px;
-    background-color: #28a745;
-    color: #fff;
-    cursor: pointer;
-}
 
 @media (max-width: 600px) {
-    .input-area {
-        flex-direction: column;
-        align-items: center;
-    }
-    .input-area input[type="text"] {
-        width: 100%;
-    }
-    #send-button {
-        border-radius: 0px;
-    }
     .message {
         width: 75%;
     }
