@@ -50,7 +50,7 @@ body {
 .message[data-type="other-message"] {
     background-color: white;
     border-color: white;
-    text-align: center;
+    text-align: left;
 
     border-top-left-radius: 4px;
 }
@@ -75,6 +75,10 @@ body {
     font-weight: bold;
     margin-bottom: 0.25em;
     margin-top: 0.25em;
+    color: var(--text-color);
+}
+.message[data-type="my-message"] .message-header {
+    color: white;
 }
 
 
